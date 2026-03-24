@@ -1,0 +1,34 @@
+name: Atnaujinti Renginius
+
+on:
+  schedule:
+    # Paleisti kiekvieną naktį 00:00 (UTC laiku)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Leidžia mygtuko paspaudimu paleisti rankiniu būdu
+
+jobs:
+  update-events:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repozitoriją
+        uses: actions/checkout@v3
+
+      - name: Paruošti Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Įdiegti bibliotekas
+        run: pip install requests beautifulsoup4
+
+      - name: Paleisti skriptą
+        run: python update_events.py
+
+      - name: Išsaugoti (Commit) pakeitimus
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          git commit -m "Automatinis renginių atnaujinimas iš sratas.lt" || echo "Nėra jokių pakeitimų"
+          git push
