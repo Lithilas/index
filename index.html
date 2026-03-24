@@ -130,6 +130,7 @@
             border-radius: 8px;
             border: 1px solid #333;
             position: relative;
+            background-color: #222; /* Pilkas fonas kol nuotrauka kraunasi */
         }
 
         .insta-item img {
@@ -137,11 +138,31 @@
             height: 100%;
             object-fit: cover;
             transition: 0.5s ease;
+            display: block;
         }
 
         .insta-item:hover img {
-            transform: scale(1.1);
-            filter: brightness(0.7);
+            transform: scale(1.05);
+            filter: brightness(0.6);
+        }
+
+        /* Ikonos efektas užvedus pelę */
+        .insta-item::after {
+            content: '🔗 Peržiūrėti';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .insta-item:hover::after {
+            opacity: 1;
         }
 
         .review-card {
@@ -224,16 +245,28 @@
     <section id="galerija">
         <h2 class="section-title">Akimirkos iš mūšio lauko</h2>
         <div class="insta-grid">
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=500" alt="Lithilas Airsoft"></div>
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?q=80&w=500" alt="Lithilas Airsoft"></div>
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1583095117325-1442167d2643?q=80&w=500" alt="Lithilas Airsoft"></div>
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1544531406-3c588a44955b?q=80&w=500" alt="Lithilas Airsoft"></div>
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?q=80&w=500" alt="Lithilas Airsoft"></div>
-            <div class="insta-item"><img src="https://images.unsplash.com/photo-1605650111210-90805c6d36e2?q=80&w=500" alt="Lithilas Airsoft"></div>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1583095117325-1442167d2643?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1544531406-3c588a44955b?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1531844251246-9a1bfaae09fc?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
+            <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="insta-item">
+                <img src="https://images.unsplash.com/photo-1605650111210-90805c6d36e2?q=80&w=500" alt="Lithilas Airsoft">
+            </a>
         </div>
         <div style="text-align: center;">
             <a href="https://www.instagram.com/lit.hil.as/" target="_blank" class="btn btn-outline">
-                📷 Sekti mus @lit.hil.as
+                📷 Daugiau akimirkų @lit.hil.as
             </a>
         </div>
     </section>
