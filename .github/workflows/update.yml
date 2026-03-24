@@ -8,7 +8,7 @@ on:
 permissions:
   contents: write 
 
-# Šita eilutė visiems laikams nutildo tą Node.js įspėjimą!
+# ŠTAI ŠI EILUTĖ IŠJUNGIA TĄ ERZINANČIĄ KLAIDĄ:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -36,5 +36,5 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add index.html
-          git diff-index --quiet HEAD || git commit -m "Automatinis renginių atnaujinimas iš sratas.lt"
+          git diff-index --quiet HEAD || git commit -m "Automatinis renginių atnaujinimas"
           git push
