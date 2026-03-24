@@ -2,26 +2,42 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-# 1. Nuskaitome sratas.lt puslapį
 url = "https://sratas.lt/organizators/72"
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
+response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+html_text = response.text
 
-# ČIA GALI REIKĖTI KOREKCIJŲ PAGAL SRATAS.LT DIZAINĄ
-# Ieškome renginių blokų. Dažniausiai tai būna <a> tagai su renginio klase arba <div> blokai
-# Pavyzdžiui, bandome rasti visus blokus, kurie turi nuorodas į renginius
-events = soup.find_all('a', href=re.compile(r'/renginys/')) 
+# 1. NUPJAUNAME viską, kas yra po žodžių "Praėję renginiai".
+# Taip garantuojame, kad skriptas netyčia nepaims senų žaidimų!
+if "Praėję renginiai" in html_text:
+    html_text = html_text.split("Praėję renginiai")[0]
+elif "Praėję žaidimai" in html_text:
+    html_text = html_text.split("Praėję žaidimai")[0]
+
+soup = BeautifulSoup(html_text, 'html.parser')
+
+# 2. Dabar ieškome renginių nuorodų tik likusioje (viršutinėje) puslapio dalyje
+events = soup.find_all('a', href=re.compile(r'/renginys/'))
 
 new_html = ""
 
-# Jei randa renginių, formuojame tavo HTML
+# Jei randa BŪSIMŲ renginių
 if events:
-    # Imam tik pirmi 3 ar 4 renginius, kad neperpildytume puslapio
-    for event in events[:3]:
+    # Išfiltruojame dublikatus (nes sratas.lt kartais tą pačią nuorodą deda 2 kartus - ant foto ir ant teksto)
+    seen_links = set()
+    unique_events = []
+    for event in events:
+        if event['href'] not in seen_links:
+            seen_links.add(event['href'])
+            unique_events.append(event)
+            
+    # Imame iki 3 artimiausių renginių
+    for event in unique_events[:3]:
         title = event.text.strip()
+        if not title:
+            title = "Airsoft Žaidimas"
+            
         link = "https://sratas.lt" + event['href']
         
-        # Generuojame HTML tavo puslapiui
         new_html += f"""
             <div class="event-item">
                 <div>
@@ -32,16 +48,17 @@ if events:
             </div>
         """
 else:
-    new_html = "<p style='text-align: center;'>Šiuo metu suplanuotų renginių nėra.</p>"
+    # Jei būsimų renginių nerasta
+    new_html = "<p style='text-align: center; font-size: 1.2rem; padding: 20px;'>Šiuo metu suplanuotų renginių nėra. Sekite naujienas!</p>"
 
-# 2. Atnaujiname tavo index.html failą
+# 3. Atnaujiname tavo index.html failą
 with open('index.html', 'r', encoding='utf-8') as file:
     html_content = file.read()
 
-# Įklijuojame naujus renginius tarp marker'ių
+# Saugiai įklijuojame tekstą tarp tavo markerių (niekas nebesusidubliuos)
 updated_html = re.sub(
     r'().*?()',
-    rf'\1\n{new_html}\n\2',
+    f'\\1\n{new_html}\n\\2',
     html_content,
     flags=re.DOTALL
 )
