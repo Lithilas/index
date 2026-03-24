@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lithilas | Airsoft Žaidimai</title>
+    <title>Lithilas | Airsoft Žaidimai Pasvalyje</title>
     <style>
         :root {
             --primary-color: #e63946;
@@ -70,9 +70,7 @@
 
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
         .card { background-color: var(--card-bg); padding: 2rem; border-radius: 8px; text-align: center; border: 1px solid #333; transition: 0.3s; }
-        .card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
-
-        /* Režimų skiltis */
+        
         .mode-tag {
             display: inline-block;
             background: #333;
@@ -85,8 +83,6 @@
             border: 1px solid var(--primary-color);
         }
 
-        /* Renginiai */
-        .events-list { max-width: 800px; margin: 0 auto; }
         .event-item {
             background-color: var(--card-bg);
             padding: 1.5rem;
@@ -97,20 +93,28 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin: 0 auto 1rem;
+            max-width: 800px;
         }
 
-        /* Atsiliepimai */
         .review-card {
             background: #1a1a1a;
             padding: 2rem;
             border-radius: 10px;
             font-style: italic;
-            position: relative;
+            border: 1px solid #222;
         }
-        .review-card::before { content: '"'; font-size: 4rem; color: var(--primary-color); position: absolute; top: -10px; left: 10px; opacity: 0.3; }
         .stars { color: #f1c40f; margin-bottom: 10px; }
         .reviewer { display: block; margin-top: 15px; font-weight: bold; color: var(--primary-color); font-style: normal; }
+
+        .map-container {
+            width: 100%;
+            height: 450px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-top: 2rem;
+        }
 
         footer { background-color: #0a0a0a; padding: 4rem 5%; text-align: center; border-top: 1px solid #333; }
         .footer-link { color: #aaa; transition: 0.3s; }
@@ -129,90 +133,80 @@
         <ul class="nav-links">
             <li><a href="#renginiai">Renginiai</a></li>
             <li><a href="#rezimai">Režimai</a></li>
-            <li><a href="#paslaugos">Paslaugos</a></li>
             <li><a href="#atsiliepimai">Atsiliepimai</a></li>
+            <li><a href="#kontaktai">Kontaktai</a></li>
         </ul>
     </header>
 
     <section class="hero">
         <h1>Lithilas Airsoft</h1>
-        <p>Adrenalinas, taktika ir bendruomenė. Vienintelis CQB stiliaus poligonas regione.</p>
+        <p>Pajiešmenių šratasvydžio poligonas. Adrenalinas, taktika ir geriausia CQB patirtis regione.</p>
         <a href="#renginiai"><button class="btn">Artimiausi Žaidimai</button></a>
     </section>
 
     <section id="renginiai">
         <h2 class="section-title">Artimiausi Renginiai</h2>
-        <div class="events-list">
-            <div class="event-item">
-                <div style="flex: 1;">
-                    <h3>#2.1 Lithilas CQB</h3>
-                    <p style="color: #aaa;">Data: Kovo 28 d. | Vieta: Pajiešmeniai</p>
-                </div>
-                <a href="https://sratas.lt/organizators/72" target="_blank" class="btn" style="font-size: 0.9rem; padding: 10px 20px;">Registruotis</a>
+        <div class="event-item">
+            <div style="flex: 1;">
+                <h3>#2.1 Lithilas CQB</h3>
+                <p style="color: #aaa;">Data: Kovo 28 d. | Vieta: Pajiešmeniai</p>
             </div>
-            
-            <p style="text-align: center; margin-top: 20px; color: #aaa;">Planuojami ir kiti renginiai – sekite kalendorių!</p>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="https://sratas.lt/organizators/72" target="_blank" class="btn btn-outline">Visi renginiai sratas.lt ➔</a>
-            </div>
+            <a href="https://sratas.lt/organizators/72" target="_blank" class="btn" style="font-size: 0.9rem; padding: 10px 20px;">Registruotis</a>
+        </div>
+        <p style="text-align: center; margin-top: 20px; color: #aaa;">Planuojami ir kiti renginiai – sekite kalendorių!</p>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://sratas.lt/organizators/72" target="_blank" class="btn btn-outline">Visi renginiai sratas.lt ➔</a>
         </div>
     </section>
 
     <section id="rezimai" style="background-color: #0f0f0f;">
         <h2 class="section-title">Žaidimų Režimai</h2>
         <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-            <p style="margin-bottom: 30px;">Mūsų poligone nuobodžiauti neteks. Ruošiame įvairaus intensyvumo scenarijus:</p>
+            <p style="margin-bottom: 30px;">Mūsų poligone nuobodžiauti neteks. Ruošiame įvairius scenarijus:</p>
             <div class="mode-tag">Bounty Hunter</div>
             <div class="mode-tag">Bomberman</div>
             <div class="mode-tag">CP Rush</div>
             <div class="mode-tag">Deathmatch</div>
-            <div class="mode-tag">Hardpoint</div>
+            <div class="mode-tag)Hardpoint</div>
             <p style="margin-top: 30px; font-style: italic; color: #aaa;">...ir nuolat kuriami nauji taktiniai iššūkiai!</p>
         </div>
     </section>
 
-    <section id="paslaugos">
-        <h2 class="section-title">Paslaugos</h2>
+    <section id="atsiliepimai">
+        <h2 class="section-title">Žaidėjų atsiliepimai</h2>
         <div class="grid-container">
-            <div class="card">
-                <h3>Privatūs renginiai</h3>
-                <p>Gimtadieniai ar draugų susibūrimai iki 12 žmonių. Pilna įranga ir instruktoriaus priežiūra.</p>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Nors teritorija nėra didelė, kiekvienas kampas išnaudotas taktiškai. Respect organizatoriams už priežiūrą, naujus scenarijus ir skanų maistą!"</p>
+                <span class="reviewer">Marius (Google Review)</span>
             </div>
-            <div class="card">
-                <h3>Bernvakariai</h3>
-                <p>Specialūs "jaunojo medžioklės" scenarijai ir maksimali adrenalino dozė prieš didžiąją šventę.</p>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Puiki vieta, geras organizatorius! Scenarijai visada pritaikomi pagal žaidėjų skaičių, veiksmo visada bus."</p>
+                <span class="reviewer">Veteranas (sratas.lt)</span>
             </div>
-            <div class="card">
-                <h3>Teambuilding</h3>
-                <p>Sustiprinkite kolegų ryšį per taktiką ir komandinį darbą stresinėse situacijose.</p>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Geriausia CQB vieta! Aukštas tempas, geros dekoracijos ir motyvacinė sistema su prizais. Nemokamas maistas ir gėrimai visada džiugina!"</p>
+                <span class="reviewer">Lankytojas (Google Review)</span>
             </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            <a href="https://www.facebook.com/Lithilas/reviews" target="_blank" class="btn btn-outline" style="border-color: #1877F2; color: #1877F2;">Facebook apžvalgos</a>
+            <a href="https://www.google.com/maps/place/Lithilas+%7C+%C5%A0ratasvydis+Pasvalyje/@56.113754,24.48883,15z" target="_blank" class="btn btn-outline" style="border-color: #4285F4; color: #4285F4;">Google apžvalgos</a>
         </div>
     </section>
 
-    <section id="atsiliepimai" style="background-color: #0f0f0f;">
-        <h2 class="section-title">Atsiliepimai</h2>
-        <div class="grid-container">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>Puikus pavyzdys, kaip net ir sąlyginai nedidelė teritorija gali duoti maksimalų veiksmą. Viskas puikiai sustyguota.</p>
-                <span class="reviewer">Veteranas (iš sratas.lt)</span>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>Aukštas tempas, draugiška atmosfera ir įdomūs scenarijai. Tikrai rekomenduoju išbandyti!</p>
-                <span class="reviewer">Marius P.</span>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <p>Geriausia vieta CQB kovoms šiaurės Lietuvoje. Inventorius tvarkingas, instruktoriai žino ką daro.</p>
-                <span class="reviewer">Airsoft fanas</span>
-            </div>
+    <section id="kontaktai" style="background-color: #0f0f0f;">
+        <h2 class="section-title">Mus rasite čia</h2>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Taikos g. 7, Pajiešmeniai, Pasvalio raj.</p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=56.113754,24.488830" target="_blank">
+                <button class="btn">📍 Pradėti navigaciją</button>
+            </a>
         </div>
-        
-        <div style="text-align: center; margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-            <a href="https://www.facebook.com/Lithilas/reviews" target="_blank" class="btn btn-outline" style="border-color: #1877F2; color: #1877F2;">Paskaityti Facebook apžvalgas</a>
-            <a href="https://www.google.com/search?q=googlemaps+lithilas#lrd=0x46e60d5f50f00001:0x463873,1" target="_blank" class="btn btn-outline" style="border-color: #4285F4; color: #4285F4;">Paskaityti Google apžvalgas</a>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2238.123!2d24.48883!3d56.113754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e60d5f50f00001%3A0x463873!2sLithilas!5e0!3m2!1slt!2slt!4v1700000000000!5m2!1slt!2slt" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
@@ -222,9 +216,8 @@
             <a href="tel:+37063053591" class="footer-link">+370 630 53591</a> | 
             <a href="mailto:preibysmarius@gmail.com" class="footer-link">preibysmarius@gmail.com</a>
         </p>
-        <p style="color: #aaa;">Taikos g. 7, Pajiešmeniai</p>
         <div style="margin-top: 20px;">
-            <a href="https://www.facebook.com/Lithilas/" target="_blank" class="footer-link">Facebook</a>
+            <a href="https://www.facebook.com/Lithilas/" target="_blank" class="footer-link">Sekite mus Facebook</a>
         </div>
         <p style="margin-top: 30px; font-size: 0.8rem; color: #444;">&copy; 2026 Lithilas. Visos teisės saugomos.</p>
     </footer>
