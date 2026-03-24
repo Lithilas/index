@@ -5,9 +5,12 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
-# Štai čia duodame robotukui leidimą išsaugoti pakeitimus faile (Ištaiso Error 128)
 permissions:
   contents: write 
+
+# Šis blokas pasako GitHub serveriams iškart naudoti naujausią Node.js 24 versiją
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   update-events:
@@ -15,10 +18,10 @@ jobs:
     
     steps:
       - name: Checkout repozitoriją
-        uses: actions/checkout@v4 # Atnaujinta į v4 (Ištaiso Node.js įspėjimą)
+        uses: actions/checkout@v4
 
       - name: Paruošti Python
-        uses: actions/setup-python@v5 # Atnaujinta į v5 (Ištaiso Node.js įspėjimą)
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
