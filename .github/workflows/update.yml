@@ -2,9 +2,12 @@ name: Atnaujinti Renginius
 
 on:
   schedule:
-    # Paleisti kiekvieną naktį 00:00 (UTC laiku)
     - cron: '0 0 * * *'
-  workflow_dispatch: # Leidžia mygtuko paspaudimu paleisti rankiniu būdu
+  workflow_dispatch:
+
+# Štai čia duodame robotukui leidimą išsaugoti pakeitimus faile (Ištaiso Error 128)
+permissions:
+  contents: write 
 
 jobs:
   update-events:
@@ -12,10 +15,10 @@ jobs:
     
     steps:
       - name: Checkout repozitoriją
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Atnaujinta į v4 (Ištaiso Node.js įspėjimą)
 
       - name: Paruošti Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Atnaujinta į v5 (Ištaiso Node.js įspėjimą)
         with:
           python-version: '3.x'
 
@@ -30,5 +33,5 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add index.html
-          git commit -m "Automatinis renginių atnaujinimas iš sratas.lt" || echo "Nėra jokių pakeitimų"
+          git diff-index --quiet HEAD || git commit -m "Automatinis renginių atnaujinimas iš sratas.lt"
           git push
