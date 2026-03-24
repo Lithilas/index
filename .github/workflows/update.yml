@@ -1,40 +1,84 @@
-name: Atnaujinti Renginius
+import requests
+from bs4 import BeautifulSoup
+import re
 
-on:
-  schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+url = "https://sratas.lt/renginiai"
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+response = requests.get(url, headers=headers)
+soup = BeautifulSoup(response.text, 'html.parser')
 
-permissions:
-  contents: write 
+events_found = []
+seen_hrefs = set()
 
-# ŠTAI ŠI EILUTĖ IŠJUNGIA TĄ ERZINANČIĄ KLAIDĄ:
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+# Ieškome absoliučiai visų nuorodų, turinčių "/renginys/"
+all_links = soup.find_all('a', href=re.compile(r'/renginys/'))
 
-jobs:
-  update-events:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout repozitoriją
-        uses: actions/checkout@v4
+for a in all_links:
+    href = a.get('href')
+    if href in seen_hrefs:
+        continue
+        
+    # Einame iki 5 lygių atgal ir tikriname, ar šio renginio bloke yra žodis "Lithilas"
+    parent = a.parent
+    is_lithilas = False
+    for _ in range(5):
+        if parent and "Lithilas" in parent.get_text(separator=" ", strip=True):
+            is_lithilas = True
+            break
+        if parent:
+            parent = parent.parent
+            
+    # Jei tai tavo renginys, ištraukiame jo pavadinimą
+    if is_lithilas:
+        # Ieškome visų to paties renginio nuorodų, kad rastume tą, kurioje užrašytas tikrasis pavadinimas, o ne įdėtas paveiksliukas
+        matching_links = soup.find_all('a', href=href)
+        best_title = ""
+        for link in matching_links:
+            text = " ".join(link.get_text(strip=True).split())
+            if len(text) > len(best_title):
+                best_title = text
+                
+        # Jei pavadinimas ilgesnis nei 4 raidės, įtraukiame į sąrašą
+        if len(best_title) > 4:
+            events_found.append({
+                'title': best_title,
+                'link': "https://sratas.lt" + href if href.startswith('/') else href
+            })
+            seen_hrefs.add(href)
 
-      - name: Paruošti Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+new_html = ""
 
-      - name: Įdiegti bibliotekas
-        run: pip install requests beautifulsoup4
+# Formuojame HTML tavo puslapiui
+if events_found:
+    for event in events_found[:3]:
+        new_html += f"""
+            <div class="event-item" style="margin-bottom: 1.5rem; background-color: var(--card-bg); padding: 1.5rem; border-left: 5px solid var(--primary-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">{event['title']}</h3>
+                    <p><a href="{event['link']}" target="_blank" style="color: #aaa; text-decoration: underline; font-size: 0.9rem;">Peržiūrėti informaciją sratas.lt</a></p>
+                </div>
+                <a href="{event['link']}" target="_blank" style="text-decoration: none;">
+                    <button class="btn" style="white-space: nowrap; background-color: #e63946; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Registruotis</button>
+                </a>
+            </div>
+        """
+else:
+    new_html = "<p style='text-align: center; font-size: 1.2rem; padding: 20px; color: #aaa;'>Šiuo metu suplanuotų renginių nėra. Sekite naujienas!</p>"
 
-      - name: Paleisti skriptą
-        run: python update_events.py
+# Atnaujiname index.html
+try:
+    with open('index.html', 'r', encoding='utf-8') as file:
+        original_html = file.read()
 
-      - name: Išsaugoti (Commit) pakeitimus
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          git add index.html
-          git diff-index --quiet HEAD || git commit -m "Automatinis renginių atnaujinimas"
-          git push
+    updated_html = re.sub(
+        r'().*?()',
+        f'\n{new_html}\n',
+        original_html,
+        flags=re.DOTALL
+    )
+
+    with open('index.html', 'w', encoding='utf-8') as file:
+        file.write(updated_html)
+    print("Sėkmingai atnaujinta!")
+except Exception as e:
+    print(f"Sistemos klaida: {e}")
