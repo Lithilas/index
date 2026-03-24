@@ -8,7 +8,7 @@ on:
 permissions:
   contents: write 
 
-# Šis blokas pasako GitHub serveriams iškart naudoti naujausią Node.js 24 versiją
+# Šita eilutė visiems laikams nutildo tą Node.js įspėjimą!
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
