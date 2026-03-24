@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taktinis Frontas | Airsoft Žaidimai</title>
+    <style>
+        /* Baziniai stiliai ir kintamieji */
+        :root {
+            --primary-color: #e63946; /* Raudona akcentinė spalva */
+            --bg-color: #121212;
+            --text-color: #f1faee;
+            --card-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navigacija */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            transition: 0.3s;
+        }
+
+        /* Hero Sekcija (Pirmas vaizdas) */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544531406-3c588a44955b?q=80&w=1920&auto=format&fit=crop') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c1121f;
+        }
+
+        /* Sekcijų išdėstymas */
+        section {
+            padding: 5rem 5%;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        /* Paslaugų kortelės */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+            color: #aaa;
+        }
+
+        /* Renginių sąrašas */
+        .event-item {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+
+        /* Footeris */
+        footer {
+            background-color: #0a0a0a;
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        /* Mobili adaptacija */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Čia vėliau reikėtų pridėti JS mėsainio meniu */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .event-item {
+                flex-direction: column;
+                text-align: left;
+                gap: 1rem;
+            }
+            .event-item .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Taktinis Frontas</div>
+        <ul class="nav-links">
+            <li><a href="#renginiai">Renginiai</a></li>
+            <li><a href="#paslaugos">Paslaugos</a></li>
+            <li><a href="#taisykles">Taisyklės</a></li>
+            <li><a href="#kontaktai">Kontaktai</a></li>
+        </ul>
+    </header>
+
+    <section class="hero">
+        <h1>Pajusk Adrenalino Dozę</h1>
+        <p>Aukščiausio lygio Airsoft žaidimai, moderni įranga ir unikalūs poligonai. Prisijunk prie artimiausio mūšio arba suorganizuok nepamirštamą šventę.</p>
+        <a href="#renginiai"><button class="btn">Artimiausi Žaidimai</button></a>
+    </section>
+
+    <section id="renginiai">
+        <h2 class="section-title">Artimiausi Renginiai</h2>
+        <div class="events-list">
+            <div class="event-item">
+                <div>
+                    <h3>Operacija: Tylus Šturmas</h3>
+                    <p><strong>Data:</strong> 2026 m. Gegužės 15 d. | <strong>Vieta:</strong> Miško Poligonas X</p>
+                </div>
+                <button class="btn">Registruotis</button>
+            </div>
+            <div class="event-item">
+                <div>
+                    <h3>Atviras CQB Žaidimas</h3>
+                    <p><strong>Data:</strong> 2026 m. Gegužės 22 d. | <strong>Vieta:</strong> Apleista Gamykla</p>
+                </div>
+                <button class="btn">Registruotis</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="paslaugos" style="background-color: #0f0f0f;">
+        <h2 class="section-title">Mūsų Paslaugos</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Įmonėms (Teambuilding)</h3>
+                <p>Sustiprinkite komandos dvasią! Specialūs scenarijai, instruktoriai ir pilnas aptarnavimas jūsų kolektyvui.</p>
+                <button class="btn" style="padding: 10px 20px; font-size: 1rem;">Daugiau</button>
+            </div>
+            <div class="card">
+                <h3>Bernvakariams</h3>
+                <p>Ekstremalus išbandymas jaunikiui ir jo draugams. Garantuojame puikias emocijas ir nuotraukas!</p>
+                <button class="btn" style="padding: 10px 20px; font-size: 1rem;">Daugiau</button>
+            </div>
+            <div class="card">
+                <h3>Dovanų Kuponai</h3>
+                <p>Padovanokite ekstremalų nuotykį. Kuponai galioja visus metus visiems atviriems žaidimams.</p>
+                <button class="btn" style="padding: 10px 20px; font-size: 1rem;">Pirkti</button>
+            </div>
+        </div>
+    </section>
+
+    <footer id="kontaktai">
+        <h2>Taktinis Frontas</h2>
+        <p style="margin: 1rem 0; color: #aaa;">Telefonas: +370 600 00000 | El. paštas: info@taktinisfrontas.lt</p>
+        <p style="color: #666;">&copy; 2026 Taktinis Frontas. Visos teisės saugomos.</p>
+    </footer>
+
+</body>
+</html>
